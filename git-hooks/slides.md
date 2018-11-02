@@ -1,3 +1,12 @@
+---
+title: Node.js and webservers
+separator: \n---\n
+verticalSeparator: \n...\n
+theme: solarized
+revealOptions:
+    transition: 'slide'
+---
+
 # Git Hooks
 
 ---
@@ -45,8 +54,8 @@ Executed before or after a push is received
 - Samples for each available hook included by default
 - Hooks are __not__ copied when you clone a repository
   - Use external tool/process to copy hooks
-
-```
+...
+<pre><code data-trim data-noescape>
 .git
 ├── HEAD
 ├── config
@@ -65,16 +74,16 @@ Executed before or after a push is received
 ├── info
 ├── objects
 └── refs
-```
+</code></pre>
 
 ...
 
 - Hooks are named as per sample files without the extension
   - `pre-commit.sample` => `pre-commit`
 - Must be executable
-  ```
+<pre><code data-trim data-noescape>
   chmod +x pre-commit
-  ```
+</code></pre>
 
 ...
 
@@ -82,17 +91,17 @@ Executed before or after a push is received
 - Non-zero exit code indicates failure
   - Will prevent completion of the Git operation in pre hooks
 
-```
+<pre><code data-trim data-noescape>
 #!/bin/sh
 echo "[pre-commit hook (shell)] Commit blocked"
 exit 1
-```
+</code></pre>
 
-```
+<pre><code data-trim data-noescape>
 #!/usr/bin/env node
 console.log('[pre-commit hook (node)] Commit blocked');
 process.exit(1);
-```
+</code></pre>
 
 ---
 
