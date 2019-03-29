@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "build": "reveal-md slides/ --static _dist"
+  },
   "dependencies": {
-    "reveal-md": "^2.3.0"
+    "gh-pages": "^2.0.1",
+    "reveal-md": "^3.0.4"
   }
 }
