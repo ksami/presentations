@@ -1,5 +1,5 @@
 ---
-title: Node.js and webservers
+title: Git Hooks
 separator: \n---\n
 verticalSeparator: \n...\n
 theme: solarized
@@ -102,6 +102,8 @@ exit 1
 console.log('[pre-commit hook (node)] Commit blocked');
 process.exit(1);
 </code></pre>
+kjasndkasn
+
 
 ---
 
