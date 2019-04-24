@@ -1,5 +1,5 @@
 ---
-title: Node.js and webservers
+title: Git Hooks
 separator: \n---\n
 verticalSeparator: \n...\n
 theme: solarized
