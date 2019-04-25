@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "reveal-md slides/ --static _static  --absolute-url https://ksami.github.io/presentations",
+    "build": "reveal-md slides/ --static _static --listing-template templates/listing.html --absolute-url https://ksami.github.io/presentations",
     "deploy": "npm run build && gh-pages -d _static"
   },
   "dependencies": {
