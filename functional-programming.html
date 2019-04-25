@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Functional Programming</title>
+    <meta property="og:title" content="Functional Programming" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ksami.github.io/presentations/featured-slide.jpg" />
+    <meta property="og:url" content="https://ksami.github.io/presentations" />
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/solarized.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# Functional Programming
+</script></section><section  data-markdown><script type="text/template">
+## What?
+A declarative programming paradigm which treats computation as the evaluation of mathematical functions, and avoids changing state and mutating data
+</script></section><section  data-markdown><script type="text/template">
+## Why?
+- Easier to test
+- Easier to reason about
+- Easier to write multi-threaded applications
+</script></section><section  data-markdown><script type="text/template">
+## Programming paradigms
+- Refers to the style of structuring a program, eg.
+  - Object-oriented programming: Everything modeled as an object
+  - Event-driven pogramming: Flow determined by events
+  - Imperative programming: Focused on how a program should operate
+</script></section><section ><section data-markdown><script type="text/template">
+## Functional Programming Concepts
+- Function
+- Function composition
+- Pure function
+- Higher order function
+- No shared state
+- No side effects
+- Immutability
+- Declarative
+</script></section><section data-markdown><script type="text/template">
+### Function
+- In the mathematical sense, a mapping from one set (eg. numbers) to another
+  - If `f = x => x - 1`, then `f(1)` maps to `0`
+</script></section><section data-markdown><script type="text/template">
+### Function composition
+- The output of one function is the input for the next function
+  - `f(g(x))` means `let i = g(x); f(i);`
+</script></section><section data-markdown><script type="text/template">
+### Pure function
+- Given the same input, always returns the same output
+  - `f(1)` will always return `0` no matter how many times it is called
+  - Pure functions with composition, `f(g(x)) === g(f(x))`
+</script></section><section data-markdown><script type="text/template">
+### Higher order function
+- Takes and/or returns other functions as inputs/outputs
+  - ```js
+    // apply is a function which takes function f as input,
+    // returns a function which takes x as input
+    // and returns the result of f applied to x
+
+    const apply = f => x => f(x);
+    const minusOne = apply(y => y - 1);
+
+    minusOne(1) === 0;           // true
+    apply(z => z + 2)(1) === 3;  // true
+    ```
+</script></section><section data-markdown><script type="text/template">
+### No shared state
+- State shared across more than one scope
+- Causes result to be affected by order of execution
+  - ```js
+    let player = { score: 4 };
+    const hasWon = () => player.score >= 5;
+    const updateScore = () => player.score++;
+
+    updateScore();
+    hasWon();
+    // player has won
+
+    player = { score: 4 };
+    hasWon();
+    updateScore();
+    // player has not won
+    ```
+</script></section><section data-markdown><script type="text/template">
+### No side effects
+- External state changes other than return value
+  - ```js
+    function minusOne(x) {
+      // nothing suspicious here
+      deleteAllDatabases();
+      return x - 1;
+    }
+    ```
+</script></section><section data-markdown><script type="text/template">
+### Immutability
+- Data should not be changed
+  - If `x = 0` then `x` should never be `1` or `'hello'` or `[]`
+</script></section><section data-markdown><script type="text/template">
+### Declarative
+- Specifying what should be done, opposed to imperative - how something should be done
+- Intent of the code is clear
+</script></section><section data-markdown><script type="text/template">
+Quiz: In 10 seconds, what does this function do?
+</script></section><section data-markdown><script type="text/template">
+#### Quiz
+    function someFunction(players) {
+      const results = [];
+      for (let i = 0; i <= players.length; i++) {
+        if (players[i].score >= 5) {
+          results.push(player[i].name);
+        }
+      }
+      return results;
+    }
+</script></section><section data-markdown><script type="text/template"></script></section><section data-markdown><script type="text/template">
+There was a bug in the previous code though...
+
+Let's try another one
+</script></section><section data-markdown><script type="text/template">
+#### Quiz
+    function anotherFunction(players) {
+      return players
+        .filter(player => player.score >= 5)
+        .map(player => player.name);
+    }
+</script></section><section data-markdown><script type="text/template">
+And another
+</script></section><section data-markdown><script type="text/template">
+#### Quiz
+    SELECT name FROM players WHERE score >= 5
+
+</script></section></section><section  data-markdown><script type="text/template">
+## Summary
+- Functions should not affect the outside world
+- Declarative code makes intent clear
+</script></section><section  data-markdown><script type="text/template">
+## References
+- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0
+- http://blog.jenkster.com/2015/12/what-is-functional-programming.html
+- https://www.keycdn.com/blog/functional-programming
+</script></section><section  data-markdown><script type="text/template">
+# Fin
+</script></section></div>
+    </div>
+
+    <script src="./lib/js/head.min.js"></script>
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"slide"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

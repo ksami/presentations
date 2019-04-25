@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Git Hooks</title>
+    <meta property="og:title" content="Git Hooks" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ksami.github.io/presentations/featured-slide.jpg" />
+    <meta property="og:url" content="https://ksami.github.io/presentations" />
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/solarized.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# Git Hooks
+</script></section><section  data-markdown><script type="text/template">
+## What?
+Allows for scripts to be run during steps in the Git workflow eg. before a commit
+</script></section><section  data-markdown><script type="text/template">
+## Why?
+- To enforce standards
+- To execute repetitive tasks
+</script></section><section ><section data-markdown><script type="text/template">
+## Client-side hooks
+Executed before or after git operations
+</script></section><section data-markdown><script type="text/template">
+### Examples
+- Disallow commits with lint/test errors
+- Enforce a commit message format
+- Configure environment/dependencies after clone/checkout
+- Remove executable permission from code files
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Server-side hooks
+Executed before or after a push is received
+</script></section><section data-markdown><script type="text/template">
+### Examples
+- Reject a push if user does not have the proper permissions
+- Send out notifications
+- Inform user of pull request process
+- Deploy to a server
+</script></section></section><section ><section data-markdown><script type="text/template">
+## How?
+- A hook is an executable script
+- Hooks stored in `.git/hooks`
+- Samples for each available hook included by default
+- Hooks are __not__ copied when you clone a repository
+  - Use external tool/process to copy hooks</script></section><section data-markdown><script type="text/template"><pre><code data-trim data-noescape>
+.git
+├── HEAD
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   └── update.sample
+├── info
+├── objects
+└── refs
+</code></pre>
+</script></section><section data-markdown><script type="text/template">
+- Hooks are named as per sample files without the extension
+  - `pre-commit.sample` => `pre-commit`
+- Must be executable
+<pre><code data-trim data-noescape>
+  chmod +x pre-commit
+</code></pre>
+</script></section><section data-markdown><script type="text/template">
+- Hooks can be written in any language as long as the correct interpreter is chosen
+- Non-zero exit code indicates failure
+  - Will prevent completion of the Git operation in pre hooks
+
+<pre><code data-trim data-noescape>
+#!/bin/sh
+echo "[pre-commit hook (shell)] Commit blocked"
+exit 1
+</code></pre>
+
+<pre><code data-trim data-noescape>
+#!/usr/bin/env node
+console.log('[pre-commit hook (node)] Commit blocked');
+process.exit(1);
+</code></pre>
+kjasndkasn
+
+</script></section></section><section  data-markdown><script type="text/template">
+## Demo
+</script></section><section  data-markdown><script type="text/template">
+# Fin
+</script></section></div>
+    </div>
+
+    <script src="./lib/js/head.min.js"></script>
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"slide"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
