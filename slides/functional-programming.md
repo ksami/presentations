@@ -166,6 +166,19 @@ And another
 
 ---
 
+## In practice
+- Side effects are unavoidable eg. Network calls, abstract them into a meaningfully named function
+- Remove state by passing in state as input
+- Abstract logical pieces of code into meaningfully named functions
+  - ```js
+    const players = getPlayersFromDb(players);
+    const winningPlayer = getWinningPlayer(players);
+    showEndGame();
+    showScoreBoard(players, winningPlayer);
+    ```
+
+---
+
 ## Summary
 - Functions should not affect the outside world
 - Declarative code makes intent clear
@@ -176,6 +189,7 @@ And another
 - https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0
 - http://blog.jenkster.com/2015/12/what-is-functional-programming.html
 - https://www.keycdn.com/blog/functional-programming
+- https://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming
 
 ---
 
