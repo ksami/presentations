@@ -26,7 +26,7 @@ A declarative programming paradigm which treats computation as the evaluation of
 ## Programming paradigms
 - Refers to the style of structuring a program, eg.
   - Object-oriented programming: Everything modeled as an object
-  - Event-driven pogramming: Flow determined by events
+  - Event-driven programming: Flow determined by events
   - Imperative programming: Focused on how a program should operate
 
 ---
