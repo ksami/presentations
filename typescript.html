@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Typescript</title>
+    <meta property="og:title" content="Typescript" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ksami.github.io/presentations/featured-slide.jpg" />
+    <meta property="og:url" content="https://ksami.github.io/presentations" />
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# Typescript
+</script></section><section  data-markdown><script type="text/template">
+## What?
+Typescript is a superset of Javascript which adds optional typing
+</script></section><section  data-markdown><script type="text/template">
+## History
+- Typescript created by Microsoft
+- Microsoft Technical Fellow Anders Hejlsberg, lead architect of C#, core developer of Typescript
+- Microsoft Bing, Office 365, Windows 8 apps teams working with Javascript
+- Encountered difficulties scaling Javascript apps
+</script></section><section ><section data-markdown><script type="text/template">
+## Features
+</script></section><section data-markdown><script type="text/template">
+### Static type analysis
+- Type annotations added to normal Javascript
+  - Program analysis and tooling eg. Intellisense
+- Type inference to decrease amount of explicit typing
+</script></section><section data-markdown><script type="text/template">
+- Compile time error checking
+  - `--strictNullChecks` compiler option to check for `null` and `undefined`
+- Type definitions for 3rd-party dependencies available from NPM eg. for `lodash`, from `@types/lodash`
+</script></section><section data-markdown><script type="text/template">
+### Compatibility with Javascript
+- Plain Javascript code is also valid Typescript code
+  - Allows for gradual introduction of Typescript into an existing Javascript codebase
+</script></section><section data-markdown><script type="text/template">
+### Compiles to Javascript
+- Can code using latest version and compile to older versions for compatibility eg. Code using ES2017 features, output ES5 code
+- Can specify module system for output eg. Code using ES2015 `import`/`export`, output commonjs `require` for Node.js
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Disadvantages
+</script></section><section data-markdown><script type="text/template">
+### Compile step
+- Code -> Run becomes Code -> Compile -> Run
+- Compile step delays workflow cycle
+</script></section><section data-markdown><script type="text/template">
+- Modern frontend development already has some sort of buildchain, compile step easily added in
+- Node.js development seldom has buildchain
+- Impact lessened with Typescript compiler `--watch` option to automatically re-compile when files are changed
+</script></section><section data-markdown><script type="text/template">
+### Type definitions
+- `.d.ts` type definition files have to be manually written for any 3rd-party dependencies with no definitions
+- `.d.ts` type definition files may be too specific or not specific enough
+- Tendency to over-specify types eg. for Data Transfer Objects (DTO)
+</script></section><section data-markdown><script type="text/template">
+- Typescript's type system less flexible than Javascript's, difficult to apply to certain Javascript patterns eg. ES2015 Proxy
+- Time and effort required to fix typing issues
+- Typescript team has been improving the type system
+</script></section><section data-markdown><script type="text/template">
+### Testing and debugging
+- Source maps required for debuggers to track exact line in Typescript source
+- Latest VSCode updates provide greater and simpler integration with Typescript
+</script></section></section><section  data-markdown><script type="text/template">
+# Fin
+</script></section></div>
+    </div>
+
+    <script src="./lib/js/head.min.js"></script>
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
