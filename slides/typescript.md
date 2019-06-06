@@ -26,12 +26,15 @@ Typescript is a superset of Javascript which adds optional typing
 
 ## Features
 
----
+...
 
 ### Static type analysis
 - Type annotations added to normal Javascript
   - Program analysis and tooling eg. Intellisense
 - Type inference to decrease amount of explicit typing
+
+...
+
 - Compile time error checking
   - `--strictNullChecks` compiler option to check for `null` and `undefined`
 - Type definitions for 3rd-party dependencies available from NPM eg. for `lodash`, from `@types/lodash`
@@ -57,6 +60,9 @@ Typescript is a superset of Javascript which adds optional typing
 ### Compile step
 - Code -> Run becomes Code -> Compile -> Run
 - Compile step delays workflow cycle
+
+...
+
 - Modern frontend development already has some sort of buildchain, compile step easily added in
 - Node.js development seldom has buildchain
 - Impact lessened with Typescript compiler `--watch` option to automatically re-compile when files are changed
@@ -67,7 +73,10 @@ Typescript is a superset of Javascript which adds optional typing
 - `.d.ts` type definition files have to be manually written for any 3rd-party dependencies with no definitions
 - `.d.ts` type definition files may be too specific or not specific enough
 - Tendency to over-specify types eg. for Data Transfer Objects (DTO)
-- Typescript's type system difficult to apply to certain Javascript patterns eg. ES2015 Proxy
+
+...
+
+- Typescript's type system less flexible than Javascript's, difficult to apply to certain Javascript patterns eg. ES2015 Proxy
 - Time and effort required to fix typing issues
 - Typescript team has been improving the type system
 
