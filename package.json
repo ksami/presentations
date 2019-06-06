@@ -5,6 +5,8 @@
   },
   "dependencies": {
     "gh-pages": "^2.0.1",
-    "reveal-md": "^3.0.4"
+    "reveal-md": "^3.0.4",
+    "js-yaml": ">=3.13.1",
+    "ws": ">=3.3.1"
   }
 }
