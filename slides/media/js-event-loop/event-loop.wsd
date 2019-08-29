@@ -1,0 +1,40 @@
+@startuml
+
+title Event Loop world
+autonumber
+
+actor "Client 1" as c1
+participant OS as os
+box "Node.js"
+  participant "Event Loop\n(libuv)" as loop
+end box
+database Database as db
+
+activate c1
+c1 -> os: POST /login
+activate loop
+loop -> os: Poll for I/O activity
+loop -> loop: Run login handler
+loop -> os: Connect to DB
+deactivate loop
+os <-> db: Establish connection
+
+activate loop
+loop -> os: Poll for I/O activity
+loop -> os: Request data from DB, register callback 1
+deactivate loop
+
+os -> db: Request data
+activate db
+db -> os: Return data
+deactivate db
+
+activate loop
+loop -> os: Poll for I/O activity
+loop -> loop: Run callback 1
+loop -> os: Return response for 1
+deactivate loop
+
+os -> c1: Return response
+
+@enduml

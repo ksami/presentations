@@ -1,0 +1,45 @@
+@startuml
+
+autonumber
+
+actor "Client 1" as c1
+actor "Client 2" as c2
+participant OS as os
+participant "Server" as server
+database Database as db
+
+activate server
+server -> os: Block until I/O activity
+
+activate c1
+c1 -> os: POST /login
+os -> server: POST /login
+server -> server: Run Login controller
+server -> os: Connect to DB
+os <-> db: Establish connection
+server -> os: Request data from DB, wait for DB response
+
+os -> db: Request data
+activate db
+
+  activate c2
+  c2 -[#DodgerBlue]> os: GET /ui
+
+db -> os: Return data
+deactivate db
+
+server -> os: DB data
+server -> server: Process
+server -> os: Return response for 1
+
+server -> os: Block until I/O activity
+os -> c1: Return response
+deactivate c1
+
+  os -[#DodgerBlue]> server: GET /ui
+  server -[#DodgerBlue]> server: Run UI controller
+  server -[#DodgerBlue]> os: Return response for 2
+  os -[#DodgerBlue]> c2: Return response
+  deactivate c2
+
+@enduml

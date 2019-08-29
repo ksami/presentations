@@ -1,0 +1,52 @@
+@startuml
+
+title Event Loop (2 Requests)
+autonumber
+
+actor "Client 1" as c1
+actor "Client 2" as c2
+participant OS as os
+box "Node.js"
+  participant "Event Loop\n(libuv)" as loop
+end box
+database Database as db
+
+activate c1
+c1 -> os: POST /login
+activate loop
+loop -> os: Poll for I/O activity
+loop -> loop: Run Login controller
+loop -> os: Connect to DB
+deactivate loop
+os <-> db: Establish connection
+
+activate loop
+loop -> os: Poll for I/O activity
+loop -> os: Request data from DB, register callback 1
+deactivate loop
+
+os -> db: Request data
+activate db
+
+  activate c2
+  c2 -[#DodgerBlue]> os: GET /ui
+  activate loop
+  loop -[#DodgerBlue]> os: Poll for I/O activity
+  loop -[#DodgerBlue]> loop: Run UI controller
+  loop -[#DodgerBlue]> os: Return response for 2
+  deactivate loop
+  os -[#DodgerBlue]> c2: Return response
+  deactivate c2
+
+db -> os: Return data
+deactivate db
+
+activate loop
+loop -> os: Poll for I/O activity
+loop -> loop: Run callback 1
+loop -> os: Return response for 1
+deactivate loop
+
+os -> c1: Return response
+
+@enduml
