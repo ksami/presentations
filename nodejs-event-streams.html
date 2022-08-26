@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Node.js Events & Streams</title>
+    <meta property="og:title" content="Node.js Events & Streams" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ksami.github.io/presentations/featured-slide.jpg" />
+    <meta property="og:url" content="https://ksami.github.io/presentations" />
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/league.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/atom-one-dark.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# Node.js Events & Streams
+</script></section><section  data-markdown><script type="text/template">
+## What?
+Programming concepts used for handling asynchronous execution
+</script></section><section ><section data-markdown><script type="text/template">
+# Events
+
+> I want to know when something happens
+
+Analogy: Mailing lists, billing subscriptions
+</script></section><section data-markdown><script type="text/template">
+- Emit and subscribe/listen for events
+- `EventEmitter` in Node.js
+
+    ```js
+    const EventEmitter = require('events');
+    const mailingList = new EventEmitter();
+    ```
+</script></section><section data-markdown><script type="text/template">
+    ### Emitting
+
+    ```js
+    mailingList.emit('newMail', 'Some advertisement');
+    ```
+</script></section><section data-markdown><script type="text/template">
+    ### Subscribing
+
+    ```js
+    mailingList.on('newMail', (message) => {
+      console.log(message);  // Some advertisement
+    });
+    ```
+</script></section></section><section ><section data-markdown><script type="text/template">
+# Streams
+
+> I want to do something while something else is happening
+
+Instead of waiting for the finished product, I can start work once I get a part of the product
+</script></section><section data-markdown><script type="text/template">
+Situation: Painter at a car factory assembly line
+
+
+- Either wait for all cars to be manufactured before starting to paint
+  - Overall car will take longer to be finished
+  - Need enough space for all cars at the same location at the same time
+- Or paint each car once each car is manufactured
+</script></section><section data-markdown><script type="text/template">
+- Streams in Node.js implemented using `EventEmitter`
+- Usually not constructed directly but from libraries eg. `fs`
+- Types of streams:
+  - `Readable` used for reading
+  - `Writable` used for writing
+  - `Duplex` used for both
+</script></section><section data-markdown><script type="text/template">
+    ## Writing
+
+    ```js
+    const fileStream = fs.createWriteStream('shakespeare.txt');
+
+    fileStream.write('Lorem Ipsum');
+    fileStream.end();
+    ```
+</script></section><section data-markdown><script type="text/template">
+    ## Reading
+
+    ```js
+    const fileStream = fs.createReadStream('shakespeare.txt');
+    const chunks = [];
+
+    fileStream.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+
+    fileStream.on('end', () => {
+      console.log(chunks.join(''));  // Lorem Ipsum
+    })
+    ```
+</script></section><section data-markdown><script type="text/template">
+    ## Piping: output from one stream as input for another stream
+
+    ```js
+    const inputStream = fs.createReadStream('input.txt');
+    const outputStream = fs.createWriteStream('output.txt');
+
+    inputStream.pipe(outputStream);
+    // output.txt is now a copy of input.txt
+    ```</script></section><section data-markdown><script type="text/template">
+- Useful events emitted:
+  - `data`: When there is data available to be read
+  - `end`: When there is no more data to read
+  - `error`: When there is an error in writing/reading data
+</script></section></section><section  data-markdown><script type="text/template">
+# Fin
+</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
