@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "reveal-md slides/ --static _static --listing-template templates/listing.html --highlight-theme atom-one-dark --absolute-url https://ksami.github.io/presentations",
+    "build": "npx reveal-md slides/ --static _static --listing-template templates/listing.html --highlight-theme atom-one-dark --absolute-url https://ksami.github.io/presentations",
     "watch": "watch \"npm run build\" slides",
     "deploy": "npm run build && gh-pages -d _static"
   },
