@@ -7,7 +7,7 @@
   "dependencies": {
     "gh-pages": "^2.0.1",
     "js-yaml": ">=3.13.1",
-    "reveal-md": "^3.1.0",
+    "reveal-md": "^5.4.0",
     "ws": ">=3.3.1"
   },
   "devDependencies": {
